@@ -1,67 +1,78 @@
-#include "main.h"
-
-void print_buffer(char buffer[], int *buff_ind);
-
+#include "holberton.h"
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
+ * _printf - printf function.
+ * @format: variable
+ *
+ * Return: nbytes printed.
  */
 int _printf(const char *format, ...)
 {
-	int i, printed = 0, printed_chars = 0;
-	int flags, width, precision, size, buff_ind = 0;
 	va_list list;
-	char buffer[BUFF_SIZE];
+	unsigned int i = 0, characters_number = 0;
 
-	if (format == NULL)
+	if (!format)
 		return (-1);
 
 	va_start(list, format);
-
-	for (i = 0; format && format[i] != '\0'; i++)
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (format[i] != '%')
+		if (format[i] == '%')
 		{
-			buffer[buff_ind++] = format[i];
-			if (buff_ind == BUFF_SIZE)
-				print_buffer(buffer, &buff_ind);
-			/* write(1, &format[i], 1);*/
-			printed_chars++;
+			if (format[i + 1] == '\0')
+				return (-1);
+
+			else if (format[i + 1] == '%')
+			{
+				_putchar('%');
+				characters_number++;
+				i++;
+			}
+			else if (cmp_func(format[i + 1]) != NULL)
+			{
+				characters_number += (cmp_func(format[i + 1]))(list);
+				i++;
+			}
+			else
+			{
+				_putchar(format[i]);
+				characters_number++;
+			}
 		}
 		else
 		{
-			print_buffer(buffer, &buff_ind);
-			flags = get_flags(format, &i);
-			width = get_width(format, &i, list);
-			precision = get_precision(format, &i, list);
-			size = get_size(format, &i);
-			++i;
-			printed = handle_print(format, &i, list, buffer,
-				flags, width, precision, size);
-			if (printed == -1)
-				return (-1);
-			printed_chars += printed;
+			_putchar(format[i]);
+			characters_number++;
 		}
 	}
-
-	print_buffer(buffer, &buff_ind);
-
 	va_end(list);
-
-	return (printed_chars);
+	return (characters_number);
 }
 
 /**
- * print_buffer - Prints the contents of the buffer if it exist
- * @buffer: Array of chars
- * @buff_ind: Index at which to add next char, represents the length.
+ * cmp_func - Entry point
+ * @a: character.
+ *
+ * Return: 0.
  */
-void print_buffer(char buffer[], int *buff_ind)
+int (*cmp_func(const char a))(va_list)
 {
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
+	print_f printf[] = {
+		{'c', printc},
+		{'s', print_string},
+		{'d', print_n},
+		{'i', print_n},
+		{'\0', NULL}
+	};
 
-	*buff_ind = 0;
+	int k;
+
+	for (k = 0; printf[k].p != '\0'; k++)
+	{
+		if (printf[k].p == a)
+		{
+			return (printf[k].func);
+		}
+	}
+
+	return (0);
 }
-
