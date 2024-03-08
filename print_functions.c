@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "main.h"
 /**
  * _putchar - Entry function. Write characteres
  * @c: variable va_list
