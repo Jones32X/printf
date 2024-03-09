@@ -1,93 +1,96 @@
 #include "main.h"
 /**
- * _putchar - Entry function. Write characteres
- * @c: variable va_list
- *
- * Return: Writed character
+ * _putchar - Entry function write characteres
+ * @c: var va_list
+ * Return: Written char
  */
+
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+
 /**
- * printc - Entry function. Print character
+ * printc - Prints character
  * @list: variable va_list
- *
- * Return: 1 (nbyte)
+ * Return: 1 Success
  */
+
 int printc(va_list list)
 {
 	_putchar(va_arg(list, int));
 	return (1);
 
 }
+
 /**
- * print_string - Entry point. Print string
+ * print_string - Prints string
  * @s: variable va_list
- *
- * Return: k (nbytes) 6 (NULL)
+ * Return: k else 6 on NULL
  */
+
 int print_string(va_list s)
 {
-	char *str;
-	int k;
+	char *string;
+	int kte;
 
-	str = va_arg(s, char*);
-	if (str == NULL)
+	string = va_arg(s, char*);
+	if (string == NULL)
 	{
 		write(1, "(null)", 6);
 		return (6);
 	}
 	else
 	{
-		for (k = 0; str[k] != '\0'; k++)
+		for (kte = 0; string[kte] != '\0'; kte++)
 		{
-			_putchar(str[k]);
+			_putchar(string[kte]);
 		}
 	}
-	return (k);
+	return (kte);
 }
 /**
- * print_n - Entry point. Print number
+ * print_n - Prints num
  * @n: Variable va_list
- *
- * Return: count (nbytes)
+ * Return: Count
  */
+
 int print_n(va_list n)
 {
 
-	long int number;
-	int counter, aux_variable, base;
+	long int num;
+	int counter, bse;
+	int AuX_var;
 
 	counter = 0;
-	number = va_arg(n, int);
+	num = va_arg(n, int);
 
-	if (number < 0)
+	if (num < 0)
 	{
-		number *= -1;
+		num *= -1;
 		_putchar(45);
 		counter++;
 	}
-	if (number >= 0 && number <= 9)
+	if (num >= 0 && num <= 9)
 	{
-		_putchar(number + 48);
+		_putchar(num + 48);
 		counter++;
 	}
-	if (number > 9)
+	if (num > 9)
 	{
-		base = 10;
+		bse = 10;
 
-		while (number / base > 9)
+		while (num / bse > 9)
 		{
-			base *= 10;
+			bse *= 10;
 		}
 
-		while (base > 0)
+		while (bse > 0)
 		{
-			aux_variable = number / base;
-			number = number % base;
-			_putchar(aux_variable + 48);
-			base = base / 10;
+			AuX_var = num / bse;
+			num = num % bse;
+			_putchar(AuX_var + 48);
+			bse = bse / 10;
 			counter++;
 		}
 	}

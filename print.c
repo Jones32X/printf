@@ -1,59 +1,65 @@
 #include "main.h"
+
 /**
  * _printf - printf function.
  * @format: variable
- *
- * Return: nbytes printed.
+ * Return:  printed for printing.
  */
+
 int _printf(const char *format, ...)
 {
 	va_list list;
-	unsigned int i = 0, characters_number = 0;
+	unsigned int ice;
+	unsigned int char_num;
+	char_num = 0;
+	ice = 0;
 
 	if (!format)
+	{
 		return (-1);
+	}
 
 	va_start(list, format);
-	for (i = 0; format[i] != '\0'; i++)
+	for (; format[ice] != '\0'; ice++)
 	{
-		if (format[i] == '%')
+		if (format[ice] == '%')
 		{
-			if (format[i + 1] == '\0')
+			if (format[ice + 1] == '\0')
 				return (-1);
 
-			else if (format[i + 1] == '%')
+			else if (format[ice + 1] == '%')
 			{
 				_putchar('%');
-				characters_number++;
-				i++;
+				char_num++;
+				ice++;
 			}
-			else if (cmp_func(format[i + 1]) != NULL)
+			else if (cmp_func(format[ice + 1]) != NULL)
 			{
-				characters_number += (cmp_func(format[i + 1]))(list);
-				i++;
+				char_num += (cmp_func(format[ice + 1]))(list);
+				ice++;
 			}
 			else
 			{
-				_putchar(format[i]);
-				characters_number++;
+				_putchar(format[ice]);
+				char_num++;
 			}
 		}
 		else
 		{
-			_putchar(format[i]);
-			characters_number++;
+			_putchar(format[ice]);
+			char_num++;
 		}
 	}
 	va_end(list);
-	return (characters_number);
+	return (char_num);
 }
 
 /**
  * cmp_func - Entry point
  * @a: character.
- *
  * Return: 0.
  */
+
 int (*cmp_func(const char a))(va_list)
 {
 	print_f printf[] = {
@@ -64,13 +70,14 @@ int (*cmp_func(const char a))(va_list)
 		{'\0', NULL}
 	};
 
-	int k;
+	int kit;
+	kit = 0;
 
-	for (k = 0; printf[k].tx != '\0'; k++)
+	for (; printf[kit].tx != '\0'; kit++)
 	{
-		if (printf[k].tx == a)
+		if (printf[kit].tx == a)
 		{
-			return (printf[k].func);
+			return (printf[kit].func);
 		}
 	}
 
