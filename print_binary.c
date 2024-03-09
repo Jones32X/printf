@@ -9,8 +9,10 @@
 
 int printf_binary(unsigned int num, int printed)
 {
-	int binary[32] = {0};
-	int i = 0;
+	int Bin[32] = {0};
+	int ice;
+
+	ice = 0;
 
 	if (num == 0)
 	{
@@ -21,15 +23,15 @@ int printf_binary(unsigned int num, int printed)
 
 	while (num > 0)
 	{
-		binary[i] = num % 2;
+		Bin[ice] = num % 2;
 		num /= 2;
-		i++;
+		ice++;
 	}
 
-	while (i > 0)
+	while (ice > 0)
 	{
-		i--;
-		_putchar('0' + binary[i]);
+		ice--;
+		_putchar('0' + Bin[ice]);
 		printed++;
 	}
 
