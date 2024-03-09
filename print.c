@@ -66,9 +66,9 @@ int (*cmp_func(const char a))(va_list)
 
 	int k;
 
-	for (k = 0; printf[k].p != '\0'; k++)
+	for (k = 0; printf[k].tx != '\0'; k++)
 	{
-		if (printf[k].p == a)
+		if (printf[k].tx == a)
 		{
 			return (printf[k].func);
 		}

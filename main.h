@@ -1,5 +1,5 @@
-#ifndef HOLBERTON_H
-#define HOLBERTON_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,13 +8,14 @@
 #include <unistd.h>
 
 /**
- * struct types - specifier structure for printf
- * @p: pointer to characteres specifiers
- * @func : function pointer to print fucntions
+ * struct types - specfies printf structure
+ * @p: points to character specifier
+ * @func : function points for printing functions
  */
+
 typedef struct types
 {
-	char p;
+	char tx;
 	int (*func)(va_list);
 } print_f;
 
@@ -25,4 +26,4 @@ int print_string(va_list s);
 int (*cmp_func(const char a))(va_list);
 int print_n(va_list n);
 
-#endif /* Holberton_h */
+#endif /* MAIN_H */
